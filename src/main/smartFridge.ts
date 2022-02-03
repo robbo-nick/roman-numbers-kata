@@ -1,22 +1,30 @@
 export class SmartFridge {
 
+    private currentDate : Date = new Date; 
+    private doorIsOpen : boolean = false;
+
+    getDoorIsOpen() : boolean {
+        return this.doorIsOpen;
+    }  
+
     getCurrentDate(): Date {
-        throw new Error("Not implemented")
+        return this.currentDate;
     }
 
     setCurrentDate(date: Date) {
-        
+        this.currentDate = date;
     }
 
     signalDoorOpened() {
-
+        this.doorIsOpen = true;
     }
 
-    scanAddedItem(milk: string, s: string, sealed: string) {
+    scanAddedItem(name: string, expiry: string, condition: string) {
 
     }
 
     signalDoorClosed() {
+        this.doorIsOpen = false;
 
     }
 
