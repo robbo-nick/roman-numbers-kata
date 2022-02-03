@@ -26,14 +26,23 @@ describe('SmartFridge', () => {
 
         const doorIsOpen = smartFridge.getDoorIsOpen();
         expect(doorIsOpen).toEqual(false);
-    }),
+    })
 
-    it('should allow the scanning of an item', ()=>{
+    it('should display the item and number of days remaining for expiry when the item is not expired', ()=>{
         const smartFridge = new SmartFridge();
+        smartFridge.setCurrentDate(new Date("2022-01-03"))
         smartFridge.scanAddedItem("Milk", "2022-01-03", "sealed");
-        
         const expectedOutput = "Milk: 0 days remaining";
-        const actualOutput = smartFridge.showDisplay;
-        expect(expectedOutput).toEqual(actualOutput);
+        const actualOutput = smartFridge.showDisplay();
+        expect(actualOutput).toEqual(expectedOutput);
+    })
+
+    it('should display expired message when the item is expired', ()=>{
+        const smartFridge = new SmartFridge();
+        smartFridge.setCurrentDate(new Date("2022-01-03"))
+        smartFridge.scanAddedItem("Milk", "2022-01-02", "sealed");
+        const expectedOutput = "EXPIRED: Milk";
+        const actualOutput = smartFridge.showDisplay();
+        expect(actualOutput).toEqual(expectedOutput);
     })
 })
